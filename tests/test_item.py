@@ -31,7 +31,7 @@ def test_name_setter(item):
     # Проверка обрезки имени, если оно превышает максимальную длину
     long_name = "Синхрофазатрон"
     item.name = long_name
-    assert item.name == long_name[:Item.MAX_LENGTH]
+    assert item.name == long_name[:Item.MAX_NAME_LENGTH]
 
     # Проверка установки пустого имени
     empty_name = ""
@@ -39,7 +39,7 @@ def test_name_setter(item):
     assert item.name == empty_name
 
     # Проверка установки имени, которое в точности равно максимальной длине
-    max_length_name = "A" * Item.MAX_LENGTH
+    max_length_name = "A" * Item.MAX_NAME_LENGTH
     item.name = max_length_name
     assert item.name == max_length_name
 
@@ -66,6 +66,7 @@ def test_instantiate_from_csv():
     Проверяем корректность получения данных из .csv.
     Проверяем вызов исключения, если файл отсутствует или повреждён.
     """
+    # Создаём временный файлик
     data = [
         {'name': 'item1', 'price': '10.0', 'quantity': '5'},
         {'name': 'item2', 'price': '15.0', 'quantity': '3'},
@@ -88,7 +89,7 @@ def test_instantiate_from_csv():
     assert Item.all[1].price == 15.0
     assert Item.all[2].quantity == 2
 
-    # Удаляем временный .csv файл
+    # Удаляем временный файлик
     os.remove('test.csv')
 
     # Проверяем вызов исключения при отсутствии .csv файла

@@ -7,10 +7,10 @@ class Item:
     """
     Класс для представления товара в магазине.
     """
-    pay_rate = 1.0
-    all = []
-    MAX_LENGTH = 10
-    PATH_TO_CSV = os.path.join('src', 'items.csv')
+    pay_rate = 1.0  # процент скидки
+    all = []  # список всех экземпляров класса
+    MAX_NAME_LENGTH = 10  # максимальная длина поля name
+    PATH_TO_CSV = os.path.join('src', 'items.csv')  # путь к файлу .csv
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -54,10 +54,10 @@ class Item:
 
     @name.setter
     def name(self, name):
-        if len(name) < self.MAX_LENGTH:
+        if len(name) <= self.MAX_NAME_LENGTH:
             self.__name = name
         else:
-            self.__name = name[:self.MAX_LENGTH]
+            self.__name = name[:self.MAX_NAME_LENGTH]
 
     def calculate_total_price(self) -> float:
         """
