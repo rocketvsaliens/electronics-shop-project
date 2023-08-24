@@ -21,9 +21,10 @@ class Item:
         try:
             with open(cls.PATH_TO_CSV, encoding='cp1251') as file:
                 reader = csv.DictReader(file)
+                cls.all.clear()
                 for line in reader:
                     item = cls(line['name'], float(line['price']), int(line['quantity']))
-                    cls.all.append(item)
+
         except FileNotFoundError:
             raise FileNotFoundError('Файл отсутствует или поверждён')
 
@@ -46,7 +47,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        # self.all.append(self)
+        self.all.append(self)
 
     @property
     def name(self):
