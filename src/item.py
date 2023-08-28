@@ -10,7 +10,7 @@ class Item:
     pay_rate = 1.0  # процент скидки
     all = []  # список всех экземпляров класса
     MAX_NAME_LENGTH = 10  # максимальная длина поля name
-    PATH_TO_CSV = os.path.join('src', 'items.csv')  # путь к файлу .csv
+    PATH_TO_CSV = os.path.join('..', 'src', 'items.csv')  # путь к файлу .csv
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -48,6 +48,12 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+
+    def __repr__(self):
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return self.name
 
     @property
     def name(self):
