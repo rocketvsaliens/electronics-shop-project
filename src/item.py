@@ -37,7 +37,7 @@ class Item:
             except ValueError:
                 raise ValueError('Строка не является числом')
 
-    def __init__(self, name: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, price: int or float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
         :param name: Название товара.
@@ -54,6 +54,12 @@ class Item:
 
     def __str__(self):
         return self.name
+
+    def __add__(self, other):
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        else:
+            raise Exception('Складывать можно только экземпляры одного класса или дочерних классов')
 
     @property
     def name(self):
