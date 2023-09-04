@@ -13,7 +13,7 @@ class Item:
     PATH_TO_CSV = os.path.join('..', 'src', 'items.csv')  # путь к файлу .csv
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls) -> None:
         """
         Загружает экземпляры класса из .csv
         Если файла нет или он не читается, вызываем исключение FileNotFoundError
@@ -29,7 +29,7 @@ class Item:
             raise FileNotFoundError('Файл отсутствует или поверждён')
 
     @staticmethod
-    def string_to_number(string):
+    def string_to_number(string: str) -> int or ValueError:
         """Переводит строку в целое число с округлением до меньшего значения"""
         if isinstance(string, str):
             try:
@@ -49,24 +49,35 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Строковое представление объекта для разработчиков"""
         return f"Item('{self.name}', {self.price}, {self.quantity})"
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Пользовательское строковое представление объекта"""
         return self.name
 
-    def __add__(self, other):
+    def __add__(self, other) -> int or Exception:
+        """
+        Складывает экземпляров класса Item и дочерних классов.
+        Выбрасывает исключение, если один или оба операнда не экземпляры Item или дочерних классов.
+        """
         if issubclass(other.__class__, self.__class__):
             return self.quantity + other.quantity
         else:
             raise Exception('Складывать можно только экземпляры одного класса или дочерних классов')
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """Выводит название товара"""
         return self.__name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str) -> None:
+        """
+        Задаёт новое название товара.
+        Если название длиннее 10 символов, обрезает новое название до 10 символов
+        """
         if len(name) <= self.MAX_NAME_LENGTH:
             self.__name = name
         else:
