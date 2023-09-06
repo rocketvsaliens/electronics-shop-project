@@ -8,15 +8,12 @@ class Phone(Item):
 
     def __init__(self, name: str, price: int or float, quantity: int, number_of_sim: int) -> None:
         """
-        Создание экземпляра класса item. Поля name, price quantity подтягиваются из родительского класса.
+        Создание экземпляра класса Phone. Поля name, price quantity подтягиваются из родительского класса.
         :param number_of_sim: Количество сим-карт.
         """
         super().__init__(name, price, quantity)
         # Т.к. от int наследуется bool, то проверку на тип int лучше делать через type
-        if type(number_of_sim) == int and number_of_sim > 0:
-            self._number_of_sim = number_of_sim
-        else:
-            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
+        self.number_of_sim = number_of_sim
 
     def __repr__(self) -> str:
         """Строковое представление объекта для разработчиков"""
